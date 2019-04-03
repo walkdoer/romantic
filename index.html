@@ -1,0 +1,95 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title>Romantic</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+  body {
+    height: 100vh;
+    background-image: url('new_zealand_muriwai_beach.JPG');
+    background-size: cover;
+    background-position: center;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC","Helvetica Neue",STHeiti,"Microsoft Yahei",Tahoma,Simsun,sans-serif;
+  }
+  .container{
+    position: absolute;
+    bottom: 200px;
+    left: 0;
+    width: 100%;
+  }
+  .love-word {
+    text-align: center;
+    font-size: 30px;
+    color: #FFF;
+  }
+  .text-clock {
+    color: #FFF;
+    text-align: center;
+    width: 500px;
+    padding: 13px;
+    background-color: rgba(0, 0, 0, 0.411);
+    font-size: 19px;
+    margin: 10px auto;
+    border-radius: 6px;
+  }
+  .text-clock strong {
+    color: #ffaa99;
+  }
+  .hour,.minute,.second{
+    width: 22px;
+    display: inline-block;
+    text-align: center;
+  }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="love-word">板板，我們一起走過<strong class="year"></strong>年的時光...</div>
+    <div class="text-clock">
+      <strong class="day"></strong> Days <strong class="hour"></strong> Hours <strong class="minute"></strong> Minutes <strong class="second"></strong> Seconds
+    </div>
+  </div>
+  <script>
+    const theDayWeGetTogether = new Date(2011, 10, 02, 22, 0, 0);
+
+    function padding(num) {
+      if (num < 10) {
+        return '0' + num;
+      }
+      return num;
+    }
+
+    function diffYears(dt2, dt1) {
+      let diff =(dt2.getTime() - dt1.getTime()) / 1000;
+      diff /= (60 * 60 * 24);
+      return Math.abs(Math.round(diff/365.25));
+    }
+
+    document.querySelector('.year').innerText = diffYears(new Date(), theDayWeGetTogether);
+
+    function startClock(startTime) {
+      const tick = function () {
+        const now = Date.now();
+        const diff = now - startTime;
+        const days = Math.floor(diff / 1000 / 60 / 60 / 24);
+        const hours = padding(Math.floor(diff / 1000 / 60 / 60 % 24));
+        const minutes = padding(Math.floor(diff / 1000 / 60 % 60));
+        const seconds = padding(Math.floor(diff / 1000 % 60));
+
+        document.querySelector('.day').innerText= days;
+        document.querySelector('.hour').innerText= hours;
+        document.querySelector('.minute').innerText= minutes;
+        document.querySelector('.second').innerText= seconds;
+      }
+      tick();
+      setInterval(tick, 1000);
+    }
+
+    startClock(theDayWeGetTogether);
+  </script>
+</body>
+
+</html>
